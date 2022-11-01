@@ -31,6 +31,7 @@ def choose_froyo():
 def show_froyo_results():
     """Shows the user what they ordered from the previous page."""
     users_froyo_flavor = request.args.get('flavor')
+    users_froyo_toppings = request.args.get('toppings')
     return f'You ordered {users_froyo_flavor} flavored Fro-Yo!'
 
 @app.route('/favorites')
@@ -80,7 +81,8 @@ def message_results():
 @app.route('/calculator')
 def calculator():
     """Shows the user a form to enter 2 numbers and an operation."""
-    return """
+    return render_template('calculator_form.html') 
+    """ 
     <form action="/calculator_results" method="GET">
         Please enter 2 numbers and select an operator.<br/><br/>
         <input type="number" name="operand1">
@@ -103,22 +105,22 @@ def calculator_results():
     number_2 = int(request.args.get('operand2'))
     operation_input = str(request.args.get('operation'))
     if operation_input == 'add':
-        result = f'You chose to add {number_1} and {number_2}. Your result is: {number_1} + {number_2}'
+        result = number_1 + number_2
     elif operation_input == 'subtract':
-        result = f'You chose to subtract {number_1} and {number_2}. Your result is: {number_1} - {number_2}'
+        result = number_1 - number_2
     elif operation_input == 'multiply':
-        result = f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} * {number_2}'
+        result = number_1 * number_2
     elif operation_input == 'divide':
-        result = f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} / {number_2}'
+        result = number_1 / number_2
     
-    contect = {
+    context = {
         "operand1" : number_1,
         "operand2" : number_2,
         "operation" : operation_input,
         "result" : result
     }
     
-    return render_template("calculator_results.html")
+    return render_template("calculator_results.html, ** context")
 
 
 HOROSCOPE_PERSONALITIES = {

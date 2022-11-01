@@ -60,11 +60,22 @@ def favorites_results():
 def secret_message():
     """Shows the user a form to collect a secret message. Sends the result via
     the POST method to keep it a secret!"""
-    pass
+    return"""
+    <form action="/message_results" method="POST">
+        What is your secret message? <br/>
+        <input type="text" name="message"><br/>
+        <input type="submit" value="Submit!"><br/>
+    </form>
+    """
 
 @app.route('/message_results', methods=['POST'])
 def message_results():
     """Shows the user their message, with the letters in sorted order."""
+    secret_message = request.form.get('message')
+    return f"""
+    Here's your secret message!<br/>
+    {sort_letters(secret_message)}
+    """
     pass
 
 @app.route('/calculator')
@@ -88,7 +99,19 @@ def calculator():
 @app.route('/calculator_results')
 def calculator_results():
     """Shows the user the result of their calculation."""
-    pass
+    result = 'string'
+    number_1 = int(request.args.get('operand1'))
+    number_2 = int(request.args.get('operand2'))
+    operation_input = str(request.args.get('operation'))
+    if operation_input == 'add':
+        result = (f'You chose to add {number_1} and {number_2}. Your result is: {number_1} + {number_2}')
+    elif operation_input == 'subtract':
+        result = (f'You chose to subtract {number_1} and {number_2}. Your result is: {number_1} - {number_2}')
+    elif operation_input == 'multiply':
+        result = (f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} * {number_2}')
+    elif operation_input == 'divide':
+        result = (f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} / {number_2}')
+    return result
 
 
 HOROSCOPE_PERSONALITIES = {

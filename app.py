@@ -29,10 +29,9 @@ def choose_froyo():
 
 @app.route('/froyo_results')
 def show_froyo_results():
-    """Shows the user what they ordered from the previous page."""
     users_froyo_flavor = request.args.get('flavor')
     users_froyo_toppings = request.args.get('toppings')
-    return f'You ordered {users_froyo_flavor} flavored Fro-Yo!'
+    return f'You ordered {users_froyo_flavor} flavored Fro-Yo with toppings {users_froyo_toppings}!'
 
 @app.route('/favorites')
 def favorites():
@@ -100,27 +99,25 @@ def calculator():
 @app.route('/calculator_results')
 def calculator_results():
     """Shows the user the result of their calculation."""
-    result = 'string'
-    number_1 = int(request.args.get('operand1'))
-    number_2 = int(request.args.get('operand2'))
-    operation_input = str(request.args.get('operation'))
-    if operation_input == 'add':
-        result = number_1 + number_2
-    elif operation_input == 'subtract':
-        result = number_1 - number_2
-    elif operation_input == 'multiply':
-        result = number_1 * number_2
-    elif operation_input == 'divide':
-        result = number_1 / number_2
-    
+    input_number_1 = int(request.args.get('operand1'))
+    input_number_2 = int(request.args.get('operand2'))
+    operation = request.args.get('operation')
+    if operation == "add":
+        result = input_number_1 + input_number_2
+    elif operation == "subtract":
+        result = input_number_1 - input_number_2
+    elif operation == "multiply":
+        result = input_number_1 * input_number_2
+    elif operation == "divide":
+        result = input_number_1 / input_number_2
+
     context = {
-        "operand1" : number_1,
-        "operand2" : number_2,
-        "operation" : operation_input,
+        "operand1" : input_number_1,
+        "operand2" : input_number_2,
+        "operation" : operation,
         "result" : result
     }
-    
-    return render_template("calculator_results.html, ** context")
+    return render_template("calculator_results.html", **context)
 
 
 HOROSCOPE_PERSONALITIES = {

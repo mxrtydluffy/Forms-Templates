@@ -103,14 +103,22 @@ def calculator_results():
     number_2 = int(request.args.get('operand2'))
     operation_input = str(request.args.get('operation'))
     if operation_input == 'add':
-        result = (f'You chose to add {number_1} and {number_2}. Your result is: {number_1} + {number_2}')
+        result = f'You chose to add {number_1} and {number_2}. Your result is: {number_1} + {number_2}'
     elif operation_input == 'subtract':
-        result = (f'You chose to subtract {number_1} and {number_2}. Your result is: {number_1} - {number_2}')
+        result = f'You chose to subtract {number_1} and {number_2}. Your result is: {number_1} - {number_2}'
     elif operation_input == 'multiply':
-        result = (f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} * {number_2}')
+        result = f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} * {number_2}'
     elif operation_input == 'divide':
-        result = (f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} / {number_2}')
-    return result
+        result = f'You chose to multiply {number_1} and {number_2}. Your result is: {number_1} / {number_2}'
+    
+    contect = {
+        "operand1" : number_1,
+        "operand2" : number_2,
+        "operation" : operation_input,
+        "result" : result
+    }
+    
+    return render_template("calculator_results.html")
 
 
 HOROSCOPE_PERSONALITIES = {
@@ -146,7 +154,7 @@ def horoscope_results():
     users_personality = HOROSCOPE_PERSONALITIES[horoscope_sign]
 
     # TODO: Generate a random number from 1 to 99
-    lucky_number = random.randint(1,99)
+    lucky_number = random.randint(1, 99)
 
     context = {
         'horoscope_sign': horoscope_sign,
